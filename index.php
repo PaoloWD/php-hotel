@@ -46,7 +46,7 @@
     if ($hasFilters){
         if($_GET["parking"]==="si"){
             $_GET["parking"] = true;
-            } else if ($_GET["parking"]==="no") {
+            } elseif ($_GET["parking"]==="no") {
                 $_GET["parking"] = false;
                 var_dump($filteredHotels);
             }
