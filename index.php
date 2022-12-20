@@ -41,13 +41,15 @@
 
     ];
     $hasFilters = isset($_GET["parking"]) || isset($_GET["vote"]);
-    if($_GET["parking"]==="si"){
-    $_GET["parking"] = true;
-    } else if ($_GET["parking"]==="no") {
-        $_GET["parking"] === false;
-    }
+    
 
     if ($hasFilters){
+        if($_GET["parking"]==="si"){
+            $_GET["parking"] = true;
+            } else if ($_GET["parking"]==="no") {
+                $_GET["parking"] = false;
+                var_dump($filteredHotels);
+            }
         foreach($hotels as $hotel){
                $mustPush = true;
                if (isset($_GET["parking"]) && !str_contains(strtolower($hotel["parking"]), strtolower($_GET["parking"]))) {
