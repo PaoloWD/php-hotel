@@ -41,6 +41,11 @@
 
     ];
     $hasFilters = isset($_GET["parking"]) || isset($_GET["vote"]);
+    if($_GET["parking"]==="si"){
+    $_GET["parking"] = true;
+    } else if ($_GET["parking"]==="no") {
+        $_GET["parking"] === false;
+    }
 
     if ($hasFilters){
         foreach($hotels as $hotel){
@@ -76,7 +81,7 @@
     <div class="d-flex my-5">
         <div>
             <form action="" method="GET">
-                <input type="number" name="parking" placeholder="Parcheggio si o no"><br>
+                <input type="text" name="parking" placeholder="Parcheggio si o no"><br>
                 <input type="number" name="vote">
                 <button class="btn btn-primary">Filtra</button>
             </form>
