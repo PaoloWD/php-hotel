@@ -1,4 +1,5 @@
 <?php
+    $filteredHotels = [];
 
     $hotels = [
 
@@ -39,8 +40,26 @@
         ],
 
     ];
+    $hasFilters = isset($_GET["parking"]) || isset($_GET["vote"]);
 
-    echo var_export($hotels, true)
+    if ($hasFilters){
+        foreach($hotels as $hotel){
+               $mustPush = true;
+               if (isset($_GET["parking"]) && !str_contains(strtolower($hotel["parking"]), strtolower($_GET["parking"]))) {
+                $mustPush = false;
+              }
+              if (isset($_GET["vote"]) && $hotel["vote"] < $_GET["vote"]) {
+                $mustPush = false;
+              }
+              if ($mustPush) {
+                $filteredHotels[] = $hotel;
+              }
+         }
+       } else{
+
+                $filteredHotels = $hotels;
+            
+       }
 
 ?>
 
@@ -54,6 +73,16 @@
     <title>PHP HOTEL</title>
  </head>
  <body>
+    <div class="d-flex my-5">
+        <div>
+            <form action="" method="GET">
+                <input type="number" name="parking" placeholder="Parcheggio si o no"><br>
+                <input type="number" name="vote">
+                <button class="btn btn-primary">Filtra</button>
+            </form>
+
+        </div>
+    </div>
     <table class="table">
     <thead>
         <tr>
@@ -65,8 +94,8 @@
         </tr>
     </thead>
     <tbody>
-       <?php 
-        foreach ($hotels as $hotel) {
+       <?php
+        foreach ($filteredHotels as $hotel) {
             echo "<tr>";
             echo "<td>" . $hotel["name"] . "</td>";
             echo "<td>" . $hotel["description"] . "</td>";
@@ -75,6 +104,7 @@
             echo "<td>" . $hotel["distance_to_center"] . "</td>";
             echo "</tr>";
             }
+        
         ?>
     </tbody>
     </table>  
