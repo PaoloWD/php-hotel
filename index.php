@@ -20,14 +20,14 @@
         [
             'name' => 'Hotel Rivamare',
             'description' => 'Hotel Rivamare Descrizione',
-            'parking' => false,
+            'parking' => "false",
             'vote' => 1,
             'distance_to_center' => 1
         ],
         [
             'name' => 'Hotel Bellavista',
             'description' => 'Hotel Bellavista Descrizione',
-            'parking' => false,
+            'parking' => "false",
             'vote' => 5,
             'distance_to_center' => 5.5
         ],
@@ -47,19 +47,21 @@
         if($_GET["parking"]==="si"){
             $_GET["parking"] = true;
             } elseif ($_GET["parking"]==="no") {
-                $_GET["parking"] = false;
-                var_dump($filteredHotels);
+                $_GET["parking"] = "false";
+                
             }
         foreach($hotels as $hotel){
                $mustPush = true;
                if (isset($_GET["parking"]) && !str_contains(strtolower($hotel["parking"]), strtolower($_GET["parking"]))) {
                 $mustPush = false;
+                
               }
               if (isset($_GET["vote"]) && $hotel["vote"] < $_GET["vote"]) {
                 $mustPush = false;
               }
               if ($mustPush) {
                 $filteredHotels[] = $hotel;
+                var_dump($filteredHotels);
               }
          }
        } else{
